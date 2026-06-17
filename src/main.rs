@@ -1,5 +1,7 @@
 use std::io::{self, Write};
 use rand::prelude::*;
+use std::thread;
+use std::time::Duration;
 
 
     fn main (){
@@ -7,7 +9,7 @@ use rand::prelude::*;
         let mut count = 0;
         let mut rng = rand::rng(); 
             while exit != 1{
-                println!("Truth or Dare? (Type random to pick randomly)");
+                println!("Truth or Dare? (Type \"exit\" to quit)");
                 io::stdout().flush().unwrap();
                 let mut input = String::new();
         
@@ -66,6 +68,7 @@ use rand::prelude::*;
             else if input.trim_end() == "exit"{
                 println!("Exiting now...");
                 println!("total count: {}", count);
+                thread::sleep(Duration::from_secs(1));
                 exit = 1;
             }
         }
