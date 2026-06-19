@@ -1,14 +1,29 @@
 use std::io::{self, Write};
 use rand::prelude::*;
-use std::thread;
+use std::{thread};
 use std::time::Duration;
 
 
     fn main (){
-        let mut exit = 0;
+        let gamestart = 1;
         let mut count = 0;
         let mut rng = rand::rng(); 
-            while exit != 1{
+        // made an array instead of making a pile of "if and else" statements
+        let dare: [&str; 6]= ["Jump 2763 times in public :3", 
+        "Dance in the middle of night no matter where you are >:D",
+        "Annoy your friend till he burst out >:3",
+        "Scream as loud as you could X3",
+        "Add only ONE ice cube in your friend's cup",
+        "Let yo gng through your phone (O_O)"];
+
+        let truth: [&str; 6]= ["What's the most embarrasing moment in public L_L",
+        "What's your fav show and what fandom are you in :3",
+        "Who's your 6th grade crush (˵¬ᴗ¬˵)",
+        "Have you ever cheated in exam? And what subject was it O_O",
+        "What is a secret you've kept from your best friend? O_O",
+        "What is a cringy phase or hyperfixation you used to have? X3"];
+
+            while gamestart != 0{
                 println!("Truth or Dare? (Type \"exit\" to quit)");
                 io::stdout().flush().unwrap();
                 let mut input = String::new();
@@ -17,59 +32,30 @@ use std::time::Duration;
                 .read_line(&mut input)
                 .expect("Failed to read line");
             
-            if input.trim_end() == "dare"{
-                let roll = rng.random_range(1..=6); 
-                println!("message: {}", roll);
-                if roll == 1{
-                    println!("Jump 2763 times in public :3");
+                if input.trim_end().to_lowercase() == "dare"{
+                    let roll = rng.random_range(0..=5); 
+                    println!("message: {}", roll);
+                    println!("{}", dare[roll]);
+                    count += 1;
+                    println!("count: {}\n", count);
+                    thread::sleep(Duration::from_secs(1));
                 }
-                else if roll == 2 {
-                    println!("Dance in the middle of night no matter where you are >:D");
+                else if input.trim_end().to_lowercase() == "truth"{
+                    let roll = rng.random_range(0..=5); 
+                    println!("message: {}", roll);
+                    println!("{}", truth[roll]);
+                    count += 1;
+                    println!("count: {}\n", count);
+                    thread::sleep(Duration::from_secs(1));
                 }
-                else if roll == 3 {
-                    println!("Annoy your friend till he burst out >:3");
+                else if input.trim_end().to_lowercase() == "sixseven"{
+                    print!("what nonsense are you talking again?\n");
                 }
-                else if roll == 4 {
-                    println!("Scream as loud as you could X3");
-                }
-                else if roll == 5 {
-                    println!("Add only ONE ice cube in your friend's cup");
-                }
-                else if roll == 6 {
-                    println!("Let yo gng through your phone (O_O)");
-                }
-                count += 1;
-                println!("count: {}", count);
-            }
-            else if input.trim_end() == "truth"{
-                let roll = rng.random_range(1..=6); 
-                println!("message: {}", roll);
-                if roll == 1{
-                    println!("What's the most embarrasing moment in public L_L");
-                }
-                else if roll == 2 {
-                    println!("What's your fav show and what fandom are you in :3");
-                }
-                else if roll == 3 {
-                    println!("Who's your 6th grade crush (˵¬ᴗ¬˵)");
-                }
-                else if roll == 4 {
-                    println!("Have you ever cheated in exam? And what subject was it O_O");
-                }
-                else if roll == 5 {
-                    println!("What is a secret you've kept from your best friend? O_O");
-                }
-                else if roll == 6 {
-                    println!("What is a cringy phase or hyperfixation you used to have? X3");
-                }
-                count += 1;
-                println!("count: {}", count);
-            }
-            else if input.trim_end() == "exit"{
-                println!("Exiting now...");
-                println!("total count: {}", count);
-                thread::sleep(Duration::from_secs(1));
-                exit = 1;
+                else if input.trim_end().to_lowercase() == "exit"{
+                    println!("Exiting now...");
+                    println!("total count: {}", count);
+                    thread::sleep(Duration::from_secs(1));
+                    break;
             }
         }
     }
